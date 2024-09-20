@@ -1,0 +1,20 @@
+# Python-related files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual Environment
+venv/
+
+# Data and model files
+Appliances.json.gz
+meta_Appliances.json.gz
+preprocessed_data.csv
+model_cf.pt
+
+# Jupyter Notebook checkpoints (if applicable)
+.ipynb_checkpoints/
+
+# OS generated files
+.DS_Store
+
