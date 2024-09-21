@@ -1,17 +1,26 @@
-# Use Python 3.11 slim image
+# Use an official Python runtime as a parent image
 FROM python:3.11-slim
 
-# Set the working directory
+# Set environment variables to ensure Python behaves properly in Docker
+# Prevents Python from writing .pyc files
+ENV PYTHONDONTWRITEBYTECODE=1  
+# Ensures output is immediately logged
+ENV PYTHONUNBUFFERED=1  
+
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-# Install dependencies
+# Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port the app runs on
-EXPOSE 5000
+# Copy the current directory contents into the container
+COPY . .
 
-# Run the application
-CMD ["python", "app.py"]
+# Expose the port your app runs on
+EXPOSE 5001
+
+# Command to run the application using Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5001", "app:app"]
