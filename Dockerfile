@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.11-slim
+FROM --platform=linux/amd64 python:3.11-slim
 
 # Set environment variables to ensure Python behaves properly in Docker
 # Prevents Python from writing .pyc files
@@ -23,4 +23,4 @@ COPY . .
 EXPOSE 5001
 
 # Command to run the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5001", "app:app"]
+CMD ["python", "-m", "gunicorn", "--bind", "0.0.0.0:5001", "app:app"]
